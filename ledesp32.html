@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+    input[type="range"] {
+      transform: rotate(90deg);
+      transform-origin: left bottom; /* Cambia esto según necesites */
+      width: 200px; /* Cambia el ancho según sea necesario */
+      height: 20px; /* Cambia la altura según sea necesario */ 
+	  appearance: none; /* Eliminar el estilo predeterminado */
+	  background: transparent; /* Fondo transparente para el track */
+	  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Track del slider */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px; /* Altura del track */
+  background: #ff0000; /* Color del track */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Thumb del slider */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Eliminar el estilo predeterminado */
+  width: 20px; /* Ancho del thumb */
+  height: 20px; /* Alto del thumb */
+  background: #ff0000; /* Color del thumb */
+  border: 2px solid #ddd; /* Color del borde del thumb */
+  border-radius: 50%; /* Hacerlo circular */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el thumb */
+  margin-top: -5px; /* Ajustar para centrar el thumb */
+}
+
+  </style>
+    <title>Control de Intensidad de LED</title>
+    <script>
+      function enviarBrillo(valor,ids) {
+        var slider = document.getElementById(ids);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.0.38/setBrightness?"+ ids + "=" + valor, true);
+        xhr.send();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Control de Intensidad de LED</h1>
+    <p>Usa el slider para ajustar la intensidad del LED:</p>
+    <input type="range" min="0" max="17" id="sliderR" oninput="enviarBrillo(this.value, this.id);">
+    <input type="range" min="0" max="17" id="sliderG" oninput="enviarBrillo(this.value, this.id);">
+    <input type="range" min="0" max="17" id="sliderB" oninput="enviarBrillo(this.value, this.id);">
+    
+  </body>
+</html>
